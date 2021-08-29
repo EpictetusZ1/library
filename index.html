@@ -6,11 +6,15 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
     <script defer src="script.js"></script>
 </head>
 <body>
 <div class="main">
+    <div class="side-bar">
     <div class="form-container">
     <form id="bookForm" action="index.html" method="get" autocomplete="off">
         <div class="form-element">
@@ -26,10 +30,8 @@
             <input type="text" id="pages" name="pages">
         </div>
         <div class="form-element">
-            <label for="yesRead">Have you read this book?</label>
+            <label for="yesRead">Have you read this book?</label><br>
             <input type="radio" id="yesRead" name="Yes" value="I have read this book.">Yes
-        </div>
-        <div class="form-element">
             <label for="notRead"></label>
             <input type="radio" id="notRead" name="No" value="I have not read this book.">No
         </div>
@@ -37,6 +39,6 @@
     </form>
     </div>
 </div>
-
+</div>
 </body>
 </html>
