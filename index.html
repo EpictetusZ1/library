@@ -10,6 +10,33 @@
     <script defer src="script.js"></script>
 </head>
 <body>
+<div class="main">
+    <div class="form-container">
+    <form id="bookForm" action="index.html" method="get" autocomplete="off">
+        <div class="form-element">
+            <label for="title">Book Title:</label>
+            <input type="text" id="title" name="title">
+        </div>
+        <div class="form-element">
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author">
+        </div>
+        <div class="form-element">
+            <label for="pages">Page Count:</label>
+            <input type="text" id="pages" name="pages">
+        </div>
+        <div class="form-element">
+            <label for="yesRead">Have you read this book?</label>
+            <input type="radio" id="yesRead" name="Yes" value="I have read this book.">Yes
+        </div>
+        <div class="form-element">
+            <label for="notRead"></label>
+            <input type="radio" id="notRead" name="No" value="I have not read this book.">No
+        </div>
+        <button type="submit">Add Book</button>
+    </form>
+    </div>
+</div>
 
 </body>
 </html>

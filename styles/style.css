@@ -1,1 +1,8 @@
 @import url(reset.css);
+
+.form-container {
+    height: 30vh;
+    width: 25vw;
+    display: flex;
+    justify-content: center;
+}
