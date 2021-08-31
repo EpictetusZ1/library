@@ -21,14 +21,16 @@ Book.prototype.changeStatus = function () {
     }
 }
 
+Book.prototype.evalRead = function () {
+    this.read = this.read === "1";
+}
+
 let myLibrary = [book1, book2, book3]
 
 function addBookToLibrary(e) {
     e.preventDefault()
-    //TODO: Simplify this code
-    let bookData = Object.fromEntries(new FormData(addBookForm)) //Creates new Obj.
-    let testData = new Map(Object.entries(bookData)) // Converts Obj. to array
-    let newBook = new Book(...testData.values()) // Converts Arr. to desired Book Obj.
+    let newBook = new Book(...new FormData(addBookForm).values())
+    newBook.evalRead()
     myLibrary.push(newBook)
     addBookForm.reset()
     displayBook()
