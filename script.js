@@ -45,7 +45,6 @@ function displayBook() {
         let author = document.createElement("h4")
         let pageCount = document.createElement("p")
 
-
         // Add remove Btn to HTML and assign Array index to data attr.
         displayRemoveBtn(bookDiv)
         bookDiv.setAttribute("data", `${myLibrary.indexOf(myLibrary[i])}`)
@@ -66,55 +65,44 @@ function createToggle(book, i) {
     let switchContainer = document.createElement("div")
     let switchBtn = document.createElement("div")
     switchContainer.classList.add("switch-container")
-    // Change Red Status of book in HTML
-    if (myLibrary[parseInt(i)].read === true) {
-        book.appendChild(switchContainer)
-        switchContainer.textContent = "Read"
+    book.appendChild(switchContainer)
+    switchContainer.textContent = "Read:"
+
+    // Change Read Status of book in HTML
+    if (myLibrary[i].read === true) {
         switchContainer.appendChild(switchBtn).classList.add("switch", "read")
     } else {
-        switchContainer.textContent = "Not Read"
-        book.appendChild(switchContainer)
-        switchContainer.appendChild(switchBtn).classList.add("switch", "not-read")
+        switchContainer.appendChild(switchBtn).classList.add("switch")
     }
-    //TODO: Change label of read to reflect status dynamically
     // Changes status of book in DOM
-    switchBtn.addEventListener("click", (e) => changeNode(e))
-    switchBtn.addEventListener("click", () => {
-        if (switchBtn.classList.contains("read")) {
-            switchBtn.classList.remove("read")
-            switchBtn.classList.add("not-read")
-        } else {
-            switchBtn.classList.remove("not-read")
-            switchBtn.classList.add("read")
-        }
-    })
+    switchBtn.addEventListener("click", (e) => changeNodeStatus(e))
+    switchBtn.addEventListener("click", () => switchBtn.classList.toggle("read"))
 }
 
-function changeNode(e) {
+function changeNodeStatus(e) {
     let childNode = e.target.parentNode
     let targetNode = childNode.parentNode
-    let index = targetNode.getAttribute("data")
-    return myLibrary[parseInt(index)].changeStatus()
+    let index = parseInt(targetNode.getAttribute("data"))
+    return myLibrary[index].changeStatus()
 }
 
 function displayRemoveBtn(book) {
     let iconContainer = document.createElement("span")
     let removeBtn = document.createElement("img")
 
-    // Add svg 'X' btn
     removeBtn.src = "./assets/svg/close_black_24dp.svg"
-
     book.appendChild(iconContainer).classList.add("remove-book")
     iconContainer.appendChild(removeBtn)
     removeBtn.addEventListener("click", (e) => removeData(e))
 }
 
+// Remove book data from DOM/ myLibrary variable
 function removeData(e) {
     let targetRemove = e.target.closest("div")
-    let index = targetRemove.getAttribute("data")
-
+    let index = parseInt(targetRemove.getAttribute("data"))
     targetRemove.remove()
-    myLibrary.splice(parseInt(index), 1)
+    myLibrary.splice(index, 1)
+
 }
 
 
