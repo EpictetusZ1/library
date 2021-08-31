@@ -72,13 +72,24 @@ function createToggle(book, i) {
 
     // Change Read Status of book in HTML
     if (myLibrary[i].read === true) {
+        switchBtn.innerText = "✓"
         switchContainer.appendChild(switchBtn).classList.add("switch", "read")
     } else {
+        switchBtn.innerText = "✕"
         switchContainer.appendChild(switchBtn).classList.add("switch")
     }
     // Changes status of book in DOM
     switchBtn.addEventListener("click", (e) => changeNodeStatus(e))
     switchBtn.addEventListener("click", () => switchBtn.classList.toggle("read"))
+    switchBtn.addEventListener("click", () => {
+        if (myLibrary[i].read === true) {
+            switchBtn.innerText = "✕"
+        } else {
+            switchBtn.innerText = "✓"
+        }
+    }, {
+        capture: true
+    })
 }
 
 function changeNodeStatus(e) {
