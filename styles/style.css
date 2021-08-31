@@ -5,7 +5,8 @@ html, body {
 }
 
 .main {
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
     width: 100%;
     display: flex;
     font-family: 'Source Serif Pro', serif;
@@ -13,7 +14,7 @@ html, body {
 }
 
 .title-container {
-    z-index: 1;
+    z-index: 2;
     height: 60px;
     background-color: #ab2727;
     width: 100%;
@@ -31,8 +32,8 @@ h2 {
 }
 
 .library-container {
-    margin-top: 60px;
-    height: 100vh;
+    margin-top: 50px;
+    height: 100%;
     width: 80%;
     display: inline-flex;
 }
@@ -42,6 +43,7 @@ h2 {
     width: 100%;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     margin: 20px 0 0 10px;
     text-align: center;
 }
@@ -85,11 +87,36 @@ h4  {
 
 p {
     font-size: 1em;
-    margin: 5px 0;
+    margin: 2px 0;
     color: black;
     padding-bottom: 5px;
 }
 
+.switch-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    height: 30px;
+    width: 100%;
+    color: #FEFEFE;
+    text-align: center;
+    line-height: 20px;
+}
+
+.switch {
+    margin: 0 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.read {
+    background-color: #26af08;
+}
+
+.not-read {
+   background-color: #f10d0d;
+}
 
 .remove-book {
     width: 100%;
@@ -114,11 +141,12 @@ p {
 }
 
 .side-bar {
-    z-index: 2;
+    z-index: 1;
     height: 80%;
-    width: 25%;
-    position: relative;
-    align-self: center;
+    width: 22%;
+    margin-top: 60px;
+    justify-self: center;
+    align-self: flex-start;
     background-color: #222831FF;
 }
 
@@ -134,7 +162,7 @@ p {
     border-radius: 15px;
 }
 
-.add-toggle {
+.add {
     height: 50px;
     width: 100%;
     border-radius: 15px 15px 0 0 ;
