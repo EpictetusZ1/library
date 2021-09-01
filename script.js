@@ -26,7 +26,7 @@ Book.prototype.evalRead = function () { // Converts str. from HTML data to bool
     this.read = this.read === "1";
 }
 
-Book.prototype.isLogged = function () {
+Book.prototype.isDisplayed = function () {
     if (!this.logged) {
         return this.logged = true
     }
@@ -41,6 +41,11 @@ function addBookToLibrary(e) {
     let newBook = new Book(...new FormData(addBookForm).values())
     newBook.evalRead()
     myLibrary.push(newBook)
+
+    if (useLocalStorage) {
+        storeLocally(newBook)
+    }
+
     addBookForm.reset()
     displayBook()
 }
@@ -48,7 +53,9 @@ function addBookToLibrary(e) {
 function displayBook() {
     for (let i = 0; i < myLibrary.length; i++) {
         if (!myLibrary[i].logged) {
-            myLibrary[i].isLogged()
+            // Check if book is already displayed
+            myLibrary[i].isDisplayed()
+
             // Define HTML book elements
             let bookDiv = document.createElement("div")
             let title = document.createElement("h3")
@@ -137,3 +144,37 @@ function updateDataAttr() {
     }
 }
 
+let useLocalStorage = false
+let bookCounter = 0
+
+function storeLocally(book) {
+    localStorage.setItem(`book${bookCounter}`, JSON.stringify(book))
+    bookCounter++
+}
+
+function getLocalStorage() {
+    if (useLocalStorage) {
+        let length = localStorage.length
+        for (let i = 0; i < length; i++) {
+            let newBook = new Book(0, 0, 0, 0, false)
+
+            let addBook = JSON.parse(localStorage.getItem(`book${i}`))
+            let yieldBook = Object.assign(newBook, addBook)
+            console.log("the new book object is", yieldBook)
+        }
+    }
+}
+
+const toggleLocalBtn = document.getElementById("local-storage-btn")
+
+toggleLocalBtn.addEventListener("click", (e) => {
+    let result
+    result = e.target.toggleAttribute("useLocal")
+    useLocalStorage = result;
+})
+
+window.onload = function () {
+    if (useLocalStorage) {
+        getLocalStorage()
+    }
+}

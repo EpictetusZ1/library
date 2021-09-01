@@ -19,11 +19,24 @@ html, body {
     background-color: #ab2727;
     width: 100%;
     position: fixed;
+    display: inline-flex;
+    justify-content: center;
+    align-content: center;
     text-align: center;
     line-height: 60px;
     letter-spacing: 2px;
     border-bottom: 2px solid #4f4e4e;
     box-shadow: 0 5px 10px 3px #414141;
+}
+
+.btn-container {
+    height: auto;
+    margin-left: 10px;
+}
+
+.title-container > button {
+    height: 70%;
+    width: 50px;
 }
 
 h2 {
@@ -108,14 +121,13 @@ p {
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    background-color: #f10d0d;
+    text-align: center;
+    justify-content: center;
 }
 
 .read {
     background-color: #26af08;
-}
-
-.not-read {
-   background-color: #f10d0d;
 }
 
 .remove-book {
@@ -125,7 +137,6 @@ p {
     color: #FEFEFE;
     display: flex;
     justify-content: flex-end;
-    overflow: visible;
 }
 
 .remove-book img {
@@ -151,7 +162,7 @@ p {
 }
 
 .form-container {
-    height: 52vh;
+    height: 550px;
     width: 16vw;
     margin-top: 60px;
     display: inline-flex;
@@ -175,11 +186,10 @@ p {
 }
 
 #bookForm {
-    height: 87%;
+    height: 90%;
     width: 85%;
     display: flex;
     justify-content: space-evenly;
-    align-self: center;
     flex-direction: column;
     color: #FEFEFE;
 }
@@ -195,6 +205,7 @@ p {
 .form-element input[type=text] {
     width: 100%;
     display: inline-block;
+    text-align: center;
 }
 
 #bookForm button[type=submit] {
@@ -208,4 +219,21 @@ p {
     font-family: Verdana, 'sans-serif';
     font-size: 0.8em;
     letter-spacing: 1px;
+}
+
+.radio-container {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    line-height: 1em;
+}
+
+.radio-container label {
+    width: 100%;
+}
+
+#bookForm input[type=radio] {
+    width: 15%;
 }
