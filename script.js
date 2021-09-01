@@ -6,11 +6,12 @@ const book3 = new Book("The Bible", "Various", 1200, false)
 const addBookForm = document.getElementById("bookForm")
 const library = document.getElementById("library")
 
-function Book(title, author, pages, read) {
+function Book(title, author, pages, read, logged) {
     this.title = title
     this.author = author
     this.pages = pages
     this.read = read
+    this.logged = logged
 }
 
 Book.prototype.changeStatus = function () { // Updates 'read' status of book
@@ -23,6 +24,12 @@ Book.prototype.changeStatus = function () { // Updates 'read' status of book
 
 Book.prototype.evalRead = function () { // Converts str. from HTML data to bool
     this.read = this.read === "1";
+}
+
+Book.prototype.isLogged = function () {
+    if (!this.logged) {
+        return this.logged = true
+    }
 }
 
 let myLibrary = [book1, book2, book3]
@@ -40,26 +47,29 @@ function addBookToLibrary(e) {
 
 function displayBook() {
     for (let i = 0; i < myLibrary.length; i++) {
-        // Define HTML book elements
-        let bookDiv = document.createElement("div")
-        let title = document.createElement("h3")
-        let hLine = document.createElement("hr")
-        let author = document.createElement("h4")
-        let pageCount = document.createElement("p")
+        if (!myLibrary[i].logged) {
+            myLibrary[i].isLogged()
+            // Define HTML book elements
+            let bookDiv = document.createElement("div")
+            let title = document.createElement("h3")
+            let hLine = document.createElement("hr")
+            let author = document.createElement("h4")
+            let pageCount = document.createElement("p")
 
-        // Add remove Btn to HTML and assign Array[i] to data attribute
-        displayRemoveBtn(bookDiv)
-        bookDiv.setAttribute("data", `${myLibrary.indexOf(myLibrary[i])}`)
+            // Add remove Btn to HTML and assign Array[i] to data attribute
+            displayRemoveBtn(bookDiv)
+            bookDiv.setAttribute("data", `${myLibrary.indexOf(myLibrary[i])}`)
 
-        // Add Book content to HTML
-        library.appendChild(bookDiv).classList.add("book")
-        bookDiv.appendChild(title).textContent = myLibrary[i].title
-        bookDiv.appendChild(hLine)
-        bookDiv.appendChild(author).textContent = myLibrary[i].author
-        bookDiv.appendChild(pageCount).textContent = `${myLibrary[i].pages} pages`
+            // Add Book content to HTML
+            library.appendChild(bookDiv).classList.add("book")
+            bookDiv.appendChild(title).textContent = myLibrary[i].title
+            bookDiv.appendChild(hLine)
+            bookDiv.appendChild(author).textContent = myLibrary[i].author
+            bookDiv.appendChild(pageCount).textContent = `${myLibrary[i].pages} pages`
 
-        //Creates Toggle Button Element for Book.read
-        createToggle(bookDiv, i)
+            //Creates Toggle Button Element for Book.read
+            createToggle(bookDiv, i)
+        }
     }
 }
 
@@ -126,3 +136,4 @@ function updateDataAttr() {
         htmlBooks[i].setAttribute("data", i.toString())
     }
 }
+
