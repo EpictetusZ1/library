@@ -8,12 +8,12 @@ let myLibrary = []
 let useLocalStorage = false
 let bookCounter = 0
 
-function Book(title, author, pages, read, logged) {
+function Book(title, author, pages, read, displayed) {
     this.title = title
     this.author = author
     this.pages = pages
     this.read = read
-    this.logged = logged
+    this.displayed = displayed
 }
 
 Book.prototype.changeStatus = function () { // Updates 'read' status of book
@@ -24,16 +24,15 @@ Book.prototype.changeStatus = function () { // Updates 'read' status of book
     }
 }
 
-Book.prototype.evalRead = function () { // Converts str. from HTML data to bool
+Book.prototype.evalRead = function () { // Converts str. to bool
     this.read = this.read === "1";
 }
 
 Book.prototype.isDisplayed = function () {
-    if (!this.logged) {
-        return this.logged = true
+    if (!this.displayed) {
+        return this.displayed = true
     }
 }
-
 
 addBookForm.addEventListener("submit", (e) => addBookToLibrary(e))
 
@@ -42,18 +41,16 @@ function addBookToLibrary(e) {
     let newBook = new Book(...new FormData(addBookForm).values())
     newBook.evalRead()
     myLibrary.push(newBook)
-
     if (useLocalStorage) {
         storeLocally(newBook)
     }
-
     addBookForm.reset()
     displayBook()
 }
 
 function displayBook() {
     for (let i = 0; i < myLibrary.length; i++) {
-        if (!myLibrary[i].logged) {
+        if (!myLibrary[i].displayed) {
             // Check if book is already displayed
             myLibrary[i].isDisplayed()
 
@@ -132,7 +129,10 @@ function displayRemoveBtn(book) {
 function removeData(e) {
     let targetRemove = e.target.closest("div")
     let index = parseInt(targetRemove.getAttribute("data"))
-
+    if (localStorage) {
+        // Removes book from local storage
+        localStorage.removeItem(`book${myLibrary.indexOf(myLibrary[index])}`)
+    }
     targetRemove.remove()
     myLibrary.splice(index, 1)
     updateDataAttr()
@@ -156,6 +156,7 @@ function getLocalStorage() {
         for (let i = 0; i < length; i++) {
             let newBook = new Book(0, 0, 0, 0, false)
 
+            // Populate Book obj. from JSON data
             let addBook = JSON.parse(localStorage.getItem(`book${i}`))
             let yieldBook = Object.assign(newBook, addBook)
             myLibrary.push(yieldBook)
@@ -182,12 +183,9 @@ stopLocalBtn.addEventListener("click", () => {
     window.location.reload()
 })
 
-// Checks if user has local storage enabled on load
 window.onload = function () {
     if (localStorage.length > 0) {
         useLocalStorage = true
-    }
-    if (useLocalStorage) {
         getLocalStorage()
         displayBook()
     }
