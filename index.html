@@ -16,12 +16,6 @@
 <div class="main">
     <div class="title-container">
         <h2>Library</h2>
-        <div class="btn-container">
-            <button id="local-storage-btn" class="local">
-                Use Local Storage
-            </button>
-        </div>
-
     </div>
     <div class="library-container">
         <div id="library">
@@ -29,7 +23,7 @@
     </div>
     <div class="side-bar">
     <div class="form-container">
-        <div class="add">Add Book</div>
+        <div class="add">Add A Book</div>
     <form id="bookForm" action="index.html" method="get" autocomplete="off">
         <div class="form-element">
             <label for="title">Book Title:</label>
@@ -49,9 +43,22 @@
             <label for="notRead"></label>
             <input type="radio" id="notRead" name="Read" value="0" checked>No
         </div>
-        <button type="submit">Add Book</button>
+        <button type="submit">Add Book Now</button>
     </form>
     </div>
+        <div class="btn-section">
+            <div class="toggle-title">
+                Local Storage
+            </div>
+            <div class="btn-container">
+                <button id="local-storage-btn" class="local">
+                    Use Local Storage
+                </button>
+                <button id="stop-local-storage" class="local">
+                    Stop Using Local Storage
+                </button>
+            </div>
+        </div>
 </div>
 </div>
 </body>
