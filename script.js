@@ -13,7 +13,7 @@ function Book(title, author, pages, read) {
     this.read = read
 }
 
-Book.prototype.changeStatus = function () {
+Book.prototype.changeStatus = function () { // Updates 'read' status of book
     if (this.read === true) {
         return this.read = false
     } else if (this.read === false) {
@@ -21,11 +21,13 @@ Book.prototype.changeStatus = function () {
     }
 }
 
-Book.prototype.evalRead = function () {
+Book.prototype.evalRead = function () { // Converts str. from HTML data to bool
     this.read = this.read === "1";
 }
 
 let myLibrary = [book1, book2, book3]
+
+addBookForm.addEventListener("submit", (e) => addBookToLibrary(e))
 
 function addBookToLibrary(e) {
     e.preventDefault()
@@ -36,8 +38,6 @@ function addBookToLibrary(e) {
     displayBook()
 }
 
-addBookForm.addEventListener("submit", (e) => addBookToLibrary(e))
-
 function displayBook() {
     for (let i = 0; i < myLibrary.length; i++) {
         // Define HTML book elements
@@ -47,18 +47,18 @@ function displayBook() {
         let author = document.createElement("h4")
         let pageCount = document.createElement("p")
 
-        // Add remove Btn to HTML and assign Array index to data attr.
+        // Add remove Btn to HTML and assign Array[i] to data attribute
         displayRemoveBtn(bookDiv)
         bookDiv.setAttribute("data", `${myLibrary.indexOf(myLibrary[i])}`)
 
-        // Add Book Obj. to HTML
+        // Add Book content to HTML
         library.appendChild(bookDiv).classList.add("book")
         bookDiv.appendChild(title).textContent = myLibrary[i].title
         bookDiv.appendChild(hLine)
         bookDiv.appendChild(author).textContent = myLibrary[i].author
         bookDiv.appendChild(pageCount).textContent = `${myLibrary[i].pages} pages`
 
-        //Creates Toggle Button Element
+        //Creates Toggle Button Element for Book.read
         createToggle(bookDiv, i)
     }
 }
@@ -83,7 +83,7 @@ function createToggle(book, i) {
     switchBtn.addEventListener("click", () => switchBtn.classList.toggle("read"))
     switchBtn.addEventListener("click", () => {
         if (myLibrary[i].read === true) {
-            switchBtn.innerText = "✕"
+        switchBtn.innerText = "✕"
         } else {
             switchBtn.innerText = "✓"
         }
@@ -93,6 +93,7 @@ function createToggle(book, i) {
 }
 
 function changeNodeStatus(e) {
+    // Targets 'grandparent' of the toggle btn - the book div w/ data attribute assigned to it
     let childNode = e.target.parentNode
     let targetNode = childNode.parentNode
     let index = parseInt(targetNode.getAttribute("data"))
@@ -113,9 +114,15 @@ function displayRemoveBtn(book) {
 function removeData(e) {
     let targetRemove = e.target.closest("div")
     let index = parseInt(targetRemove.getAttribute("data"))
+
     targetRemove.remove()
     myLibrary.splice(index, 1)
-
+    updateDataAttr()
 }
 
-
+function updateDataAttr() {
+    let htmlBooks = document.querySelectorAll(".book")
+    for (let i = 0; i < htmlBooks.length; i ++) {
+        htmlBooks[i].setAttribute("data", i.toString())
+    }
+}

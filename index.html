@@ -27,21 +27,21 @@
     <form id="bookForm" action="index.html" method="get" autocomplete="off">
         <div class="form-element">
             <label for="title">Book Title:</label>
-            <input type="text" id="title" name="title">
+            <input type="text" id="title" name="title" required>
         </div>
         <div class="form-element">
             <label for="author">Author:</label>
-            <input type="text" id="author" name="author">
+            <input type="text" id="author" name="author" required>
         </div>
         <div class="form-element">
             <label for="pages">Page Count:</label>
-            <input type="text" id="pages" name="pages">
+            <input type="text" id="pages" name="pages" placeholder="0">
         </div>
-        <div class="form-element">
+        <div class="form-element radio-container">
             <label for="yesRead">Have you read this book?</label>
-            <input type="radio" id="yesRead" name="Yes" value="Read">Yes
+            <input type="radio" id="yesRead" name="Read" value="1">Yes
             <label for="notRead"></label>
-            <input type="radio" id="notRead" name="No" value="Not Read">No
+            <input type="radio" id="notRead" name="Read" value="0" checked>No
         </div>
         <button type="submit">Add Book</button>
     </form>
