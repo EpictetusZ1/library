@@ -1,10 +1,12 @@
-// Test books for Library display formatting
-const book1 = new Book("The Obstacle is the Way", "Ryan Holiday", 391, true)
-const book2 = new Book("The Witcher", "Andrej Sapkowski", 400,true)
-const book3 = new Book("The Bible", "Various", 1200, false)
-
 const addBookForm = document.getElementById("bookForm")
 const library = document.getElementById("library")
+
+const useLocalBtn = document.getElementById("local-storage-btn")
+const stopLocalBtn = document.getElementById("stop-local-storage")
+
+let myLibrary = []
+let useLocalStorage = false
+let bookCounter = 0
 
 function Book(title, author, pages, read, logged) {
     this.title = title
@@ -32,7 +34,6 @@ Book.prototype.isDisplayed = function () {
     }
 }
 
-let myLibrary = [book1, book2, book3]
 
 addBookForm.addEventListener("submit", (e) => addBookToLibrary(e))
 
@@ -144,9 +145,6 @@ function updateDataAttr() {
     }
 }
 
-let useLocalStorage = false
-let bookCounter = 0
-
 function storeLocally(book) {
     localStorage.setItem(`book${bookCounter}`, JSON.stringify(book))
     bookCounter++
@@ -160,21 +158,37 @@ function getLocalStorage() {
 
             let addBook = JSON.parse(localStorage.getItem(`book${i}`))
             let yieldBook = Object.assign(newBook, addBook)
-            console.log("the new book object is", yieldBook)
+            myLibrary.push(yieldBook)
         }
     }
 }
 
-const toggleLocalBtn = document.getElementById("local-storage-btn")
-
-toggleLocalBtn.addEventListener("click", (e) => {
+// Handles the INITIAL instance of a user deciding to use Local storage
+useLocalBtn.addEventListener("click", (e) => {
     let result
     result = e.target.toggleAttribute("useLocal")
     useLocalStorage = result;
 })
 
+// Add color to BTN to alert user of storage status
+useLocalBtn.addEventListener("click", (e) => e.target.classList.toggle("use-local-true"))
+
+stopLocalBtn.addEventListener("click",(e) => e.target.classList.toggle("use-local-false"))
+
+// Stops local storage and clears data
+stopLocalBtn.addEventListener("click", () => {
+    useLocalStorage = false
+    localStorage.clear()
+    window.location.reload()
+})
+
+// Checks if user has local storage enabled on load
 window.onload = function () {
+    if (localStorage.length > 0) {
+        useLocalStorage = true
+    }
     if (useLocalStorage) {
         getLocalStorage()
+        displayBook()
     }
 }
