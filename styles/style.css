@@ -1,7 +1,8 @@
 @import url(reset.css);
 
-html, body {
-    overflow-y: hidden;
+body {
+    overflow-x: hidden;
+    overflow-y: visible;
 }
 
 .main {
@@ -150,6 +151,7 @@ p {
     z-index: 1;
     height: 80%;
     width: 22%;
+    overflow-y: hidden;
     margin-top: 60px;
     justify-self: center;
     align-self: flex-start;
@@ -265,7 +267,7 @@ p {
 .local {
     width: auto;
     height: 30%;
-    margin: 12px 2px 4px 0;
+    margin: 12px 0;
     border: none;
     border-radius: 5px;
     background-color: #222831;
