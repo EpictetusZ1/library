@@ -8,35 +8,37 @@ let myLibrary = []
 let useLocalStorage = false
 let bookCounter = 0
 
-function Book(title, author, pages, read, displayed) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-    this.displayed = displayed
-}
-
-Book.prototype.changeStatus = function () { // Updates 'read' status of book
-    if (this.read === true) {
-        return this.read = false
-    } else if (this.read === false) {
-        return this.read = true
+class Book {
+    constructor(title, author, pages, read, displayed) {
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.read = read
+        this.displayed = displayed
     }
-}
 
-Book.prototype.evalRead = function () { // Converts str. to bool
-    this.read = this.read === "1";
-}
+    changeStatus = () => { // Updates 'read' status of book
+        if (this.read === true) {
+            return this.read = false
+        } else if (this.read === false) {
+            return this.read = true
+        }
+    }
 
-Book.prototype.isDisplayed = function () {
-    if (!this.displayed) {
-        return this.displayed = true
+    evalRead = () => { // Converts str. to bool
+        this.read = this.read === "1";
+    }
+
+    isDisplayed = () => {
+        if (!this.displayed) {
+            return this.displayed = true
+        }
     }
 }
 
 addBookForm.addEventListener("submit", (e) => addBookToLibrary(e))
 
-function addBookToLibrary(e) {
+const addBookToLibrary = (e) => {
     e.preventDefault()
     let newBook = new Book(...new FormData(addBookForm).values())
     newBook.evalRead()
@@ -146,8 +148,8 @@ function updateDataAttr() {
 }
 
 function storeLocally(book) {
-    localStorage.setItem(`book${bookCounter}`, JSON.stringify(book))
     bookCounter++
+    localStorage.setItem(`book${bookCounter}`, JSON.stringify(book))
 }
 
 function getLocalStorage() {
